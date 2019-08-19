@@ -6,10 +6,12 @@ import DetailsScreen from './screens/DetailsScreen.js'
 class LogoTitle extends React.Component{
   render() {
     return (
-      <Image
-        source={{uri:'https://images.pexels.com/photos/2071873/pexels-photo-2071873.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'}}
-        style={{width:40, height:40}}
-      />
+      <View style={{flex:1,alignItems:'center', justifyContent:'center'}}>
+        <Image
+          source={{uri:'https://images.pexels.com/photos/2071873/pexels-photo-2071873.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'}}
+          style={{width:40, height:40}}
+        />
+      </View>
     );
   }
 }
