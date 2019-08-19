@@ -1,13 +1,27 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Button, TouchableOpacity, Text, View } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import DetailsScreen from './screens/DetailsScreen.js'
 
 class HomeScreen extends React.Component {
+
+  onPress = () => {
+    return this.props.navigation.navigate("Details")
+  }
+  
   render(){
     return (
       <View style={{flex:1, alignItems:"center", justifyContent:"center"}}>
-        <Text>HomeScreen</Text>
+        {/* <Text>HomeScreen</Text> */}
+        <Button
+          title="세부화면으로"
+          onPress={this.onPress}
+        />
+        <TouchableOpacity
+         style ={{ justifyContent:'center', height : 50, alignItem:"center", backgroundColor:"pink"}} 
+         onPress={this.onPress}>
+          <Text style={{color:'white'}}>눌러보세요</Text> 
+        </TouchableOpacity>
       </View>
     )
   }
@@ -22,7 +36,7 @@ const AppNavigator = createStackNavigator(
     // Details: DetailsScreen
   },
   { 
-    initialRouteName: "Details"
+    initialRouteName: "Home"
   }
 );
 

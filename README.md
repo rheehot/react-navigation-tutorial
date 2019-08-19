@@ -107,7 +107,7 @@ export default DetailsScreen;
 ```
 
 ## App.js에서 Props를 전달하기 위해서 함수형 컴포넌트로 변형 ( 좀 어려운 난이도로 응용한 형태 )
-
+### AppNavigator 에서 initialRouteName이 Home으로 잘 되어 있는지 확인
 ``` javascript
 import React from 'react';
 import { Text, View } from 'react-native';
@@ -133,15 +133,95 @@ const AppNavigator = createStackNavigator(
     // Details: DetailsScreen
   },
   { 
-    initialRouteName: "Details"
+    initialRouteName: "Home"
   }
 );
 
-const AppContainer = createAppContainer(AppNavigator);
+... <<이하생략>>
+```
 
-export default class App extends React.Component{
+# 화면이동 실습
+
+## Button 기능을 사용해서 화면 이동하기 실습
+``` javascript
+import React from 'react';
+import { Button, Text, View } from 'react-native';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
+import DetailsScreen from './screens/DetailsScreen.js'
+
+class HomeScreen extends React.Component {
   render(){
-    return <AppContainer />;
+    return (
+      <View style={{flex:1, alignItems:"center", justifyContent:"center"}}>
+        {/* <Text>HomeScreen</Text> */}
+        <Button
+          title="세부화면으로"
+          onPress={() => this.props.navigation.navigate("Details")}
+        />
+      </View>
+    )
   }
 }
+
+```
+
+## TouchableOpaciy 기능을 사용해서 화면 이동하기 실습
+``` javascript
+import React from 'react';
+import { Button, TouchableOpacity, Text, View } from 'react-native';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
+import DetailsScreen from './screens/DetailsScreen.js'
+
+class HomeScreen extends React.Component {
+  render(){
+    return (
+      <View style={{flex:1, alignItems:"center", justifyContent:"center"}}>
+        {/* <Text>HomeScreen</Text> */}
+        <Button
+          title="세부화면으로"
+          onPress={() => this.props.navigation.navigate("Details")}
+        />
+        <TouchableOpacity
+         style ={{ justifyContent:'center', height : 50, alignItem:"center", backgroundColor:"pink"}} 
+         onPress={() => this.props.navigation.navigate("Details")}>
+          <Text style={{color:'white'}}>눌러보세요</Text> 
+        </TouchableOpacity>
+      </View>
+    )
+  }
+}
+...<<이하 생략>>
+```
+
+## onPress 함수 외부에서 정의하기 (feat. Arrow Function) & 화면 이동하기 실습
+``` javascript
+import React from 'react';
+import { Button, TouchableOpacity, Text, View } from 'react-native';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
+import DetailsScreen from './screens/DetailsScreen.js'
+
+class HomeScreen extends React.Component {
+
+  onPress = () => {
+    return this.props.navigation.navigate("Details")
+  }
+  
+  render(){
+    return (
+      <View style={{flex:1, alignItems:"center", justifyContent:"center"}}>
+        {/* <Text>HomeScreen</Text> */}
+        <Button
+          title="세부화면으로"
+          onPress={this.onPress}
+        />
+        <TouchableOpacity
+         style ={{ justifyContent:'center', height : 50, alignItem:"center", backgroundColor:"pink"}} 
+         onPress={this.onPress}>
+          <Text style={{color:'white'}}>눌러보세요</Text> 
+        </TouchableOpacity>
+      </View>
+    )
+  }
+}
+...<<이하 생략>>
 ```
