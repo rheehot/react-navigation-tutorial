@@ -78,9 +78,10 @@ export default DetailsScreen;
 import Testttttt, { Test } from 'Test';
 // 'Testttttt' 는 Test파일에 있는 컴포넌트를 부르는 호칭
 // { Test }는 export한 클래스를 직접 부르는 호칭
+
+
 // Version 2
 // { Test as Test1} 을 통해서 Test를 Test1으로 부를 수 있다.
 import Testttttt, { Test as Test1 } from 'Test';
-
 Test2 == Testttttt // True
 ```
