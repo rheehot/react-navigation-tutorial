@@ -87,3 +87,61 @@ import Testttttt, { Test } from 'Test';
 import Testttttt, { Test as Test1 } from 'Test';
 Test2 == Testttttt // True
 ```
+
+## Props 값을 받아올 수 있도록 DetailsScreens.js 변경
+``` javascript
+import React, { Component } from 'react'
+import { Text, View } from 'react-native'
+
+class DetailsScreen extends Component {
+    render() {
+        return (
+            <View style={{flex:1, alignItems:"center", justifyContent:"center", backgroundColor:"skyblue"}}>
+                <Text> DetailsScreen: { this.props.titleID } !!! </Text>
+            </View>
+        )
+    }
+}
+
+export default DetailsScreen;
+```
+
+## App.js에서 Props를 전달하기 위해서 함수형 컴포넌트로 변형 ( 좀 어려운 난이도로 응용한 형태 )
+
+``` javascript
+import React from 'react';
+import { Text, View } from 'react-native';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
+import DetailsScreen from './screens/DetailsScreen.js'
+
+class HomeScreen extends React.Component {
+  render(){
+    return (
+      <View style={{flex:1, alignItems:"center", justifyContent:"center"}}>
+        <Text>HomeScreen</Text>
+      </View>
+    )
+  }
+}
+
+const AppNavigator = createStackNavigator(
+  {
+    Home: {
+      screen: HomeScreen
+    },
+    Details: () => (<DetailsScreen titleID="홀리몰리" />),
+    // Details: DetailsScreen
+  },
+  { 
+    initialRouteName: "Details"
+  }
+);
+
+const AppContainer = createAppContainer(AppNavigator);
+
+export default class App extends React.Component{
+  render(){
+    return <AppContainer />;
+  }
+}
+```

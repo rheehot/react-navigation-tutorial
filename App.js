@@ -16,9 +16,10 @@ class HomeScreen extends React.Component {
 const AppNavigator = createStackNavigator(
   {
     Home: {
-      screen:HomeScreen
+      screen: HomeScreen
     },
-    Details: DetailsScreen,
+    Details: () => (<DetailsScreen titleID="홀리몰리" />),
+    // Details: DetailsScreen
   },
   { 
     initialRouteName: "Details"

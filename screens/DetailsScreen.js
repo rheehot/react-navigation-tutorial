@@ -5,7 +5,7 @@ class DetailsScreen extends Component {
     render() {
         return (
             <View style={{flex:1, alignItems:"center", justifyContent:"center", backgroundColor:"skyblue"}}>
-                <Text> DetailsScreen </Text>
+                <Text> DetailsScreen: { this.props.titleID } !!! </Text>
             </View>
         )
     }
