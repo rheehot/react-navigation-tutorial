@@ -316,3 +316,238 @@ class DetailsScreen extends Component {
 
 export default DetailsScreen;
 ```
+
+# 파라미터 값 전달하기
+## onPress안에서 직접 실행하는 경우
+./app.js 수정
+``` javascript
+class HomeScreen extends React.Component {
+
+  
+  render(){
+    return (
+      <View style={{flex:1, alignItems:"center", justifyContent:"center"}}>
+        {/* <Text>HomeScreen</Text> */}
+        <Button
+          title="세부화면으로"
+          onPress={() => {
+            this.props.navigation.navigate("Details", {
+            itemId: 86,
+            otherParam: "파라미터 전달",
+            });
+          }}
+        />
+        <TouchableOpacity
+         style ={{ justifyContent:'center', height : 50, alignItem:"center", backgroundColor:"pink"}} 
+         onPress={() => {
+            this.props.navigation.navigate("Details", {
+            itemId: 86,
+            otherParam: "파라미터 전달",
+            });}>
+          <Text style={{color:'white'}}>눌러보세요</Text> 
+        </TouchableOpacity>
+      </View>
+    )
+  }
+}
+```
+## 함수형으로 외부에 뺀 경우
+./app.js 수정
+``` javascript
+class HomeScreen extends React.Component {
+
+  onPress = () => {
+    return this.props.navigation.navigate("Details", {
+      itemId: 86,
+      otherParam: "파라미터 전달",
+    });
+  }
+  
+  render(){
+    return (
+      <View style={{flex:1, alignItems:"center", justifyContent:"center"}}>
+        {/* <Text>HomeScreen</Text> */}
+        <Button
+          title="세부화면으로"
+          onPress={this.onPress}
+        />
+        <TouchableOpacity
+         style ={{ justifyContent:'center', height : 50, alignItem:"center", backgroundColor:"pink"}} 
+         onPress={this.onPress}>
+          <Text style={{color:'white'}}>눌러보세요</Text> 
+        </TouchableOpacity>
+      </View>
+    )
+  }
+}
+```
+
+## DetailsScreen.js 수정
+### 추가로 세부화면으로 다시 실행할 경우 랜덤한 값이 전달될 수 있도록 Math 라이브러리를 통해 랜덤한 값을 전달할 수 있도록 함
+``` javascript
+import React, { Component } from 'react'
+import { Button, TouchableOpacity, Text, View } from 'react-native'
+
+class DetailsScreen extends Component {
+    render() {
+        const navigation = this.props.navigation;
+        const itemId = navigation.getParam('itemId', 'NO-ID');
+        const otherParam = navigation.getParam('otherParam', 'Default Value');
+        return (
+            <View style={{flex:1, alignItems:"center", justifyContent:"center", backgroundColor:"skyblue"}}>
+                <Text>itemId : {itemId} </Text>
+                <Text>otherParam: {otherParam}</Text>
+                <Text> DetailsScreen: { this.props.titleID } !!! </Text>
+                <Button 
+                  title = "다시 세부 화면으로..."
+                  onPress={() => this.props.navigation.push('Details', {
+                      itemId: Math.floor(Math.random() * 100),
+                  })}
+                />
+                <Button
+                  title = "홈으로"
+                  onPress={() => this.props.navigation.navigate('Home')}
+                />
+                <Button
+                  title = "뒤로"
+                  onPress = {() => this.props.navigation.goBack()}
+                />
+            </View>
+        )
+    }
+}
+
+export default DetailsScreen;
+```
+
+## 좌측 상단에 홈이라는 글자를 추가해주기 위한 작업 (상단바 좌측 홈 추가)
+./App.js
+``` javascript
+class HomeScreen extends React.Component {
+  static navigationOptions = {
+    title: '홈',
+  };
+... <<이하생략>>
+```
+
+## 세부항목에서도 변경내역을 뜰 수 있게 작업
+### 앞서서 navigation 옵션 변경한 부분 수정 (변경한 사람만, 아래 소스코드 확인)
+props로 넘기게 되면 이전의 값을 덮어 씌우면서 전달하기 때문에 적용이 제대로 안되었다. 따라서 소스코드의 변경이 필요로 하다. 
+./App.js
+``` javascript
+const AppNavigator = createStackNavigator(
+  {
+    Home: {
+      screen: HomeScreen
+    },
+    // Details: (props) => (<DetailsScreen navigation={props.navigation} titleID="홀리몰리"  />),
+    Details: DetailsScreen
+  },
+  { 
+    initialRouteName: "Home"
+  }
+);
+```
+./screens/DetailsScreen.js
+``` javascript
+class DetailsScreen extends Component {
+    static navigationOptions = {
+        title: "세부화면",
+        headerStyle: {
+            backgroundColor: '#f4511e',
+        },
+        headerTintColor: '#fff',
+    };
+...<<이하생략>>
+```
+
+## 전체 앱 디자인을 위해 설정
+``` javascript
+import React from 'react';
+import { Button, TouchableOpacity, Text, View } from 'react-native';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
+import DetailsScreen from './screens/DetailsScreen.js'
+
+class HomeScreen extends React.Component {
+  static navigationOptions = {
+    title: '홈',
+  };
+
+  onPress = () => {
+    return this.props.navigation.navigate("Details", {
+      itemId: 86,
+      otherParam: "파라미터 전달",
+    });
+  }
+  
+  render(){
+    return (
+      <View style={{flex:1, alignItems:"center", justifyContent:"center"}}>
+        {/* <Text>HomeScreen</Text> */}
+        <Button
+          title="세부화면으로"
+          onPress={this.onPress}
+        />
+        <TouchableOpacity
+         style ={{ justifyContent:'center', height : 50, alignItem:"center", backgroundColor:"pink"}} 
+         onPress={this.onPress}>
+          <Text style={{color:'white'}}>눌러보세요</Text> 
+        </TouchableOpacity>
+      </View>
+    )
+  }
+}
+
+// 실제로 앱의 디자인을 설정을 해주는 부분
+const AppNavigator = createStackNavigator(
+  {
+    Home: {
+      screen: HomeScreen
+    },
+    // Details: (props) => (<DetailsScreen navigation={props.navigation} titleID="홀리몰리"  />),
+    Details: DetailsScreen
+  },
+  { 
+    initialRouteName: "Home",
+    defaultNavigationOptions:{
+      headerStyle:{
+        backgroundColor:'violet',
+      },
+      headerTintColor:'#fff',
+      headerTintStyle:{
+        fontWeith:'bold',
+      },
+    },
+  },
+);
+
+const AppContainer = createAppContainer(AppNavigator);
+
+export default class App extends React.Component{
+  render(){
+    return <AppContainer />;
+  }
+}
+```
+
+# 로고 이미지 추가
+./App.js
+```javascript
+class LogoTitle extends React.Component{
+  render() {
+    return (
+      <Image
+        source={{uri:'https://images.pexels.com/photos/2071873/pexels-photo-2071873.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'}}
+        style={{width:40, height:40}}
+      />
+    );
+  }
+}
+// 아래와 같이 변경을 하면, 해당 컴포넌트를 통해 이미지 로그를 가져올 수 있다.
+class HomeScreen extends React.Component {
+  static navigationOptions = {
+    headerTitle:<LogoTitle />,
+  };
+
+  ...<<이하생략>>
+```
