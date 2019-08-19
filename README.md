@@ -20,7 +20,7 @@ expo install react-native-gesture-handler
 expo install react-native-reanimated
 ```
 
-App.js 편집
+App.js 
 ``` javascript
 import React from 'react';
 import { Text, View } from 'react-native';
@@ -53,8 +53,8 @@ export default class App extends React.Component{
 
 DetailsScreen 추가
 - screens폴더 생성
+./screens/DetailsScreen.js
 ``` javascript
-// ./screens/DetailsScreen.js
 import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 
@@ -108,6 +108,7 @@ export default DetailsScreen;
 
 ## App.js에서 Props를 전달하기 위해서 함수형 컴포넌트로 변형 ( 좀 어려운 난이도로 응용한 형태 )
 ### AppNavigator 에서 initialRouteName이 Home으로 잘 되어 있는지 확인
+./App.js
 ``` javascript
 import React from 'react';
 import { Text, View } from 'react-native';
@@ -143,6 +144,7 @@ const AppNavigator = createStackNavigator(
 # 화면이동 실습
 
 ## Button 기능을 사용해서 화면 이동하기 실습
+./App.js
 ``` javascript
 import React from 'react';
 import { Button, Text, View } from 'react-native';
@@ -166,6 +168,7 @@ class HomeScreen extends React.Component {
 ```
 
 ## TouchableOpaciy 기능을 사용해서 화면 이동하기 실습
+./App.js
 ``` javascript
 import React from 'react';
 import { Button, TouchableOpacity, Text, View } from 'react-native';
@@ -194,6 +197,7 @@ class HomeScreen extends React.Component {
 ```
 
 ## onPress 함수 외부에서 정의하기 (feat. Arrow Function) & 화면 이동하기 실습
+./App.js
 ``` javascript
 import React from 'react';
 import { Button, TouchableOpacity, Text, View } from 'react-native';
@@ -231,8 +235,8 @@ class HomeScreen extends React.Component {
 
 
 ### 아래와 같은 코드일 경우 변경할 필요없음
+./App.js
 ``` javascript
-// ./App.js
 const AppNavigator = createStackNavigator(
   {
     Home: {
@@ -248,8 +252,8 @@ const AppNavigator = createStackNavigator(
 ```
 
 ### 함수형 컴포넌트인 경우 변경해야할 내용
+./App.js
 ``` javascript
-// ./App.js
 const AppNavigator = createStackNavigator(
   {
     Home: {
@@ -266,6 +270,7 @@ const AppNavigator = createStackNavigator(
 ```
 
 - navigation에서 .push라는 함수를 통해 실행됌
+./screens/DetailsScreen.js
 ``` javascript
 import React, { Component } from 'react'
 import { Button, TouchableOpacity, Text, View } from 'react-native'
@@ -288,6 +293,7 @@ export default DetailsScreen;
 ```
 
 ## 홈 화면으로, 뒤로가기 버튼 구현
+./screens/DetailsScreen.js
 ``` javascript
 import React, { Component } from 'react'
 import { Button, TouchableOpacity, Text, View } from 'react-native'
@@ -319,7 +325,7 @@ export default DetailsScreen;
 
 # 파라미터 값 전달하기
 ## onPress안에서 직접 실행하는 경우
-./app.js 수정
+./app.js
 ``` javascript
 class HomeScreen extends React.Component {
 
@@ -352,7 +358,7 @@ class HomeScreen extends React.Component {
 }
 ```
 ## 함수형으로 외부에 뺀 경우
-./app.js 수정
+./app.js
 ``` javascript
 class HomeScreen extends React.Component {
 
@@ -384,6 +390,7 @@ class HomeScreen extends React.Component {
 
 ## DetailsScreen.js 수정
 ### 추가로 세부화면으로 다시 실행할 경우 랜덤한 값이 전달될 수 있도록 Math 라이브러리를 통해 랜덤한 값을 전달할 수 있도록 함
+./screens/DetailsScreen.js
 ``` javascript
 import React, { Component } from 'react'
 import { Button, TouchableOpacity, Text, View } from 'react-native'
@@ -432,7 +439,7 @@ class HomeScreen extends React.Component {
 
 ## 세부항목에서도 변경내역을 뜰 수 있게 작업
 ### 앞서서 navigation 옵션 변경한 부분 수정 (변경한 사람만, 아래 소스코드 확인)
-props로 넘기게 되면 이전의 값을 덮어 씌우면서 전달하기 때문에 적용이 제대로 안되었다. 따라서 소스코드의 변경이 필요로 하다. 
+props로 넘기게 되면 이전의 값을 덮어 씌우면서 전달하기 때문에 적용이 제대로 안되었다. 따라서 소스코드의 변경이 필요로 하다. <br>
 ./App.js
 ``` javascript
 const AppNavigator = createStackNavigator(
@@ -462,6 +469,7 @@ class DetailsScreen extends Component {
 ```
 
 ## 전체 앱 디자인을 위해 설정
+./App.js
 ``` javascript
 import React from 'react';
 import { Button, TouchableOpacity, Text, View } from 'react-native';
