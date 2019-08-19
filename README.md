@@ -225,3 +225,64 @@ class HomeScreen extends React.Component {
 }
 ...<<이하 생략>>
 ```
+
+## DetailsScreen.js 에서도 다음 화면 이동 버틍 수행 실습
+### 함수형 컴포넌트로 실행한 경우 한단계를 더 실행해야함!
+
+
+### 아래와 같은 코드일 경우 변경할 필요없음
+``` javascript
+// ./App.js
+const AppNavigator = createStackNavigator(
+  {
+    Home: {
+      screen: HomeScreen
+    },
+    Details: DetailsScreen
+  },
+  { 
+    initialRouteName: "Home"
+  }
+);
+...<< 이하생략 >>
+```
+
+### 함수형 컴포넌트인 경우 변경해야할 내용
+``` javascript
+// ./App.js
+const AppNavigator = createStackNavigator(
+  {
+    Home: {
+      screen: HomeScreen
+    },
+    Details: (props) => (<DetailsScreen navigation={props.navigation} titleID="홀리몰리"  />),
+    //Details: DetailsScreen
+  },
+  { 
+    initialRouteName: "Home"
+  }
+);
+...<< 이하생략 >>
+```
+
+- navigation에서 .push라는 함수를 통해 실행됌
+``` javascript
+import React, { Component } from 'react'
+import { Button, TouchableOpacity, Text, View } from 'react-native'
+
+class DetailsScreen extends Component {
+    render() {
+        return (
+            <View style={{flex:1, alignItems:"center", justifyContent:"center", backgroundColor:"skyblue"}}>
+                <Text> DetailsScreen: { this.props.titleID } !!! </Text>
+                <Button 
+                  title = "다시 세부 화면으로..."
+                  onPress={() => this.props.navigation.push('Details')}
+                />
+            </View>
+        )
+    }
+}
+
+export default DetailsScreen;
+```

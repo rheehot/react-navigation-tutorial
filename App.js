@@ -32,8 +32,8 @@ const AppNavigator = createStackNavigator(
     Home: {
       screen: HomeScreen
     },
-    Details: () => (<DetailsScreen titleID="홀리몰리" />),
-    // Details: DetailsScreen
+    Details: (props) => (<DetailsScreen navigation={props.navigation} titleID="홀리몰리"  />),
+    //Details: DetailsScreen
   },
   { 
     initialRouteName: "Home"
