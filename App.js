@@ -40,17 +40,17 @@ class HomeScreen extends React.Component {
           <Button
             onPress={navigation.getParam('increaseCountOne')}
             title="+1"
-            color="transparent"
+            color="black"
           />
           <Button
             onPress={navigation.getParam('increaseCountTwo')}
             title="+2"
-            color="transparent"
+            color="black"
           />
           <Button
             onPress={navigation.getParam('increaseCountThree')}
             title="+3"
-            color="transparent"
+            color="black"
           />
         </View>
       ),
@@ -59,17 +59,17 @@ class HomeScreen extends React.Component {
           <Button
             onPress={navigation.getParam("resetCount")}
             title="Reset"
-            color="transparent"
+            color="black"
           />
           <Button
             onPress={navigation.getParam("decreaseCount")}
             title="-1"
-            color="transparent"
+            color="black"
           />
           <Button
             onPress={()=> navigation.navigate('MyModal')}
             title="Modal"
-            color="transparet"
+            color="black"
           />
         </View>
       )
