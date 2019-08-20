@@ -21,18 +21,37 @@ class HomeScreen extends React.Component {
     return {
       headerTitle:<LogoTitle />,
       headerRight: (
-        <Button
-          onPress={navigation.getParam('increaseCount')}
-          title="+1"
-          color="transparent"
-        />
+        <View style={{flex:1, flexDirection:'row'}}>
+          <Button
+            onPress={navigation.getParam('increaseCountOne')}
+            title="+1"
+            color="transparent"
+          />
+          <Button
+            onPress={navigation.getParam('increaseCountTwo')}
+            title="+2"
+            color="transparent"
+          />
+          <Button
+            onPress={navigation.getParam('increaseCountThree')}
+            title="+3"
+            color="transparent"
+          />
+        </View>
       ),
       headerLeft: (
-        <Button
-          onPress={navigation.getParam("resetCount")}
-          title="Reset"
-          color="transparent"
-        />
+        <View style={{flex:1, flexDirection:'row'}}>
+          <Button
+            onPress={navigation.getParam("resetCount")}
+            title="Reset"
+            color="transparent"
+          />
+          <Button
+            onPress={navigation.getParam("decreaseCount")}
+            title="-1"
+            color="transparent"
+          />
+        </View>
       )
     }
   };
@@ -43,8 +62,20 @@ class HomeScreen extends React.Component {
     };
   }
 
-  _increaseCount = () => {
+  _decreaseCount = () => {
+    this.setState({count:this.state.count-1})
+  }
+
+  _increaseCountOne = () => {
     this.setState({count:this.state.count+1})
+  }
+
+  _increaseCountTwo = () => {
+    this.setState({count:this.state.count+2})
+  }
+
+  _increaseCountThree = () => {
+    this.setState({count:this.state.count+3})
   }
 
   _reset = () => {
@@ -53,7 +84,10 @@ class HomeScreen extends React.Component {
 
   componentDidMount() {
     this.props.navigation.setParams({
-      increaseCount:this._increaseCount,
+      decreaseCount:this._decreaseCount,
+      increaseCountOne:this._increaseCountOne,
+      increaseCountTwo:this._increaseCountTwo,
+      increaseCountThree:this._increaseCountThree,
       resetCount:this._reset
     });
   }
