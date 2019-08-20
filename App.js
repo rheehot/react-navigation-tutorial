@@ -144,6 +144,7 @@ class HomeScreen extends React.Component {
 
 // 기존 AppNavigator -> MainStack
 // 네비게이터 변경해보는 실습
+// createStackNavigator
 // createMaterialTopTabNavigator 
 // createBottomTabNavigator
 const MainStack = createMaterialTopTabNavigator(

@@ -708,8 +708,11 @@ headerLeft: (
       )
     }
 
-// createStackNavigaton 변경 부분
 // 기존 AppNavigator -> MainStack
+// 네비게이터 변경해보는 실습
+// createStackNavigator
+// createMaterialTopTabNavigator 
+// createBottomTabNavigator
 const MainStack = createStackNavigator(
   {
     Home: {
