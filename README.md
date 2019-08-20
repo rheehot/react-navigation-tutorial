@@ -597,4 +597,36 @@ class HomeScreen extends React.Component {
   ... <<이하 생략>>
   ```
 
-  
+# state와 버튼을 이용해서 카운트 증가 실습
+./App.js
+```javascript
+
+... <<생략>>
+static navigationOptions = ({navigation})=>{
+    return {
+      headerTitle:<LogoTitle />,
+      headerRight: (
+      <Button
+        onPress={navigation.getParam('_increaseCount')}
+        title="+1"
+        color="transparent"
+      />
+    )
+    }
+  };
+  constructor(props){
+    super(props);
+    this.state = {
+      count : 0,
+    };
+  }
+
+  componentDidMount() {
+    this.props.navigation.setParams({_increaseCount:this._increaseCount});
+  }
+
+  _increaseCount = () => {
+    this.setState({count:this.state.count+1})
+  }
+  ... <<이하 생략>>
+  ```  

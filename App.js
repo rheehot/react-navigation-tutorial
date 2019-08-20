@@ -17,16 +17,32 @@ class LogoTitle extends React.Component{
 }
 
 class HomeScreen extends React.Component {
-  static navigationOptions = {
-    headerTitle:<LogoTitle />,
-    headerRight: (
+  static navigationOptions = ({navigation})=>{
+    return {
+      headerTitle:<LogoTitle />,
+      headerRight: (
       <Button
-        onPress={()=> alert('우측버튼!')}
-        title="info"
+        onPress={navigation.getParam('_increaseCount')}
+        title="+1"
         color="transparent"
       />
     )
+    }
   };
+  constructor(props){
+    super(props);
+    this.state = {
+      count : 0,
+    };
+  }
+
+  componentDidMount() {
+    this.props.navigation.setParams({_increaseCount:this._increaseCount});
+  }
+
+  _increaseCount = () => {
+    this.setState({count:this.state.count+1})
+  }
 
   onPress = () => {
     return this.props.navigation.navigate("Details", {
