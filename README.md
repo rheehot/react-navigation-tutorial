@@ -676,5 +676,76 @@ static navigationOptions = ({navigation})=>{
       resetCount:this._reset
     });
   }
-...<<이하생략>>
+...<<이하 생략>>
+```
+
+# App.js 에서 Modal(아래에서 화면이 올라오는 것)클래스 선언 후 동작 실습
+## Full-Screen Modal
+./App.js
+``` javascript
+...<<생략>>
+class ModalScreen extends React.Component {
+  render() {
+    return (
+      <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
+        <Text style={{fontSize:30}}>this is a modal!</Text>
+        <Button
+          onPress={()=>this.props.navigation.goBack()}
+          title="Dismiss"
+        />
+      </View>
+    )
+  }
+}
+
+// HomeScreen 클래스 내부의 static navigationOptions 변경
+headerLeft: (
+        <Button
+            onPress={()=> navigation.navigate('MyModal')}
+            title="Modal"
+            color="transparet"
+        />
+      )
+    }
+
+// createStackNavigaton 변경 부분
+// 기존 AppNavigator -> MainStack
+const MainStack = createStackNavigator(
+  {
+    Home: {
+      screen: HomeScreen
+    },
+    // Details: (props) => (<DetailsScreen navigation={props.navigation} titleID="홀리몰리"  />),
+    Details: DetailsScreen,
+  },
+  { 
+    initialRouteName: "Home",
+    defaultNavigationOptions:{
+      headerStyle:{
+        backgroundColor:'gray',
+      },
+      headerTintColor:'#ff0012',
+      headerTintStyle:{
+        fontWeith:'bold',
+      },
+    },
+  },
+);
+
+const RootStack = createStackNavigator(
+  {
+    Main:{
+      screen:MainStack,
+    },
+    MyModal: {
+      screen:ModalScreen
+    },
+  },
+  {
+    mode:'modal',
+    headerMode:'none',
+  }
+);
+
+const AppContainer = createAppContainer(RootStack);
 ```

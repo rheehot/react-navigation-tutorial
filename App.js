@@ -3,6 +3,20 @@ import { Image, Button, TouchableOpacity, Text, View } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import DetailsScreen from './screens/DetailsScreen.js'
 
+class ModalScreen extends React.Component {
+  render() {
+    return (
+      <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
+        <Text style={{fontSize:30}}>this is a modal!</Text>
+        <Button
+          onPress={()=>this.props.navigation.goBack()}
+          title="Dismiss"
+        />
+      </View>
+    )
+  }
+}
+
 class LogoTitle extends React.Component{
   render() {
     return (
@@ -50,6 +64,11 @@ class HomeScreen extends React.Component {
             onPress={navigation.getParam("decreaseCount")}
             title="-1"
             color="transparent"
+          />
+          <Button
+            onPress={()=> navigation.navigate('MyModal')}
+            title="Modal"
+            color="transparet"
           />
         </View>
       )
@@ -123,13 +142,14 @@ class HomeScreen extends React.Component {
   }
 }
 
-const AppNavigator = createStackNavigator(
+// 기존 AppNavigator -> MainStack
+const MainStack = createStackNavigator(
   {
     Home: {
       screen: HomeScreen
     },
     // Details: (props) => (<DetailsScreen navigation={props.navigation} titleID="홀리몰리"  />),
-    Details: DetailsScreen
+    Details: DetailsScreen,
   },
   { 
     initialRouteName: "Home",
@@ -145,7 +165,22 @@ const AppNavigator = createStackNavigator(
   },
 );
 
-const AppContainer = createAppContainer(AppNavigator);
+const RootStack = createStackNavigator(
+  {
+    Main:{
+      screen:MainStack,
+    },
+    MyModal: {
+      screen:ModalScreen
+    },
+  },
+  {
+    mode:'modal',
+    headerMode:'none',
+  }
+);
+
+const AppContainer = createAppContainer(RootStack);
 
 export default class App extends React.Component{
   render(){
