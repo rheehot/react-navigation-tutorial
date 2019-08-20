@@ -789,3 +789,5 @@ const MainStack = createBottomTabNavigator(
   }
 );
 ```
+## 아이콘 변경하고 싶을 경우
+https://expo.github.io/vector-icons/

@@ -162,9 +162,9 @@ const MainStack = createBottomTabNavigator(
         const { routeName } = navigation.state;
         let iconName;
         if (routeName === 'Home'){
-          iconName = `ios-information-circle${focused ?'':'-outline'}`
+          iconName = `ios-home`
         } else if (routeName === 'Details'){
-          iconName=`ios-options`;
+          iconName=`ios-menu`;
         }
         return <Ionicons name={iconName} size={25} color={tintColor} />;
       },
