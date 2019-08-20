@@ -19,6 +19,13 @@ class LogoTitle extends React.Component{
 class HomeScreen extends React.Component {
   static navigationOptions = {
     headerTitle:<LogoTitle />,
+    headerRight: (
+      <Button
+        onPress={()=> alert('우측버튼!')}
+        title="info"
+        color="transparent"
+      />
+    )
   };
 
   onPress = () => {
@@ -31,16 +38,22 @@ class HomeScreen extends React.Component {
   render(){
     return (
       <View style={{flex:1, alignItems:"center", justifyContent:"center"}}>
-        {/* <Text>HomeScreen</Text> */}
+        {/* <Text>HomeScreen</Text>
         <Button
           title="세부화면으로"
           onPress={this.onPress}
         />
         <TouchableOpacity
-         style ={{ justifyContent:'center', height : 50, alignItem:"center", backgroundColor:"pink"}} 
+         style ={{ justifyContent:'center',width: 90, height: 40 , alignItem:"center", backgroundColor:"black"}} 
          onPress={this.onPress}>
           <Text style={{color:'white'}}>눌러보세요</Text> 
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+        <Text style={{fontSize:25}}>HomeScreen</Text>
+        <Text style={{fontSize:25}}>Count: {this.state.count}</Text>
+        <Button
+          title="Go to Details"
+          onPress={()=>this.props.navigation.navigate('Details')}
+        />
       </View>
     )
   }
@@ -58,9 +71,9 @@ const AppNavigator = createStackNavigator(
     initialRouteName: "Home",
     defaultNavigationOptions:{
       headerStyle:{
-        backgroundColor:'violet',
+        backgroundColor:'gray',
       },
-      headerTintColor:'#fff',
+      headerTintColor:'#ff0012',
       headerTintStyle:{
         fontWeith:'bold',
       },

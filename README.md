@@ -577,3 +577,24 @@ class LogoTitle extends React.Component{
 }
 ...<<이하생략>>
 ```
+
+# 우측 클릭 버튼 생성
+./App.js
+
+``` javascript
+... <<생략>>
+class HomeScreen extends React.Component {
+  static navigationOptions = {
+    headerTitle:<LogoTitle />,
+    headerRight: (
+      <Button
+        onPress={()=> alert('우측버튼!')}
+        title="info"
+        color="transparent"
+      />
+    )
+  };
+  ... <<이하 생략>>
+  ```
+
+  
