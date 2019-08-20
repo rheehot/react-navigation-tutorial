@@ -111,13 +111,6 @@ class HomeScreen extends React.Component {
       resetCount:this._reset
     });
   }
-
-  onPress = () => {
-    return this.props.navigation.navigate("Details", {
-      itemId: 86,
-      otherParam: "파라미터 전달",
-    });
-  }
   
   render(){
     return (
@@ -148,7 +141,7 @@ class HomeScreen extends React.Component {
 // createStackNavigator
 // createMaterialTopTabNavigator 
 // createBottomTabNavigator
-const MainStack = createBottomTabNavigator(
+const MainStack = createStackNavigator(
   {
     Home: {
       screen: HomeScreen
@@ -171,23 +164,23 @@ const MainStack = createBottomTabNavigator(
     }),
     tabBarOptions: {
       activeTintColor: 'tomato',
-      inactiveTintColor:'gray',
+      inactiveTintColor:'pink',
     }
   }
 );
 
-const RootStack = createStackNavigator(
+const RootStack = createBottomTabNavigator(
   {
     Main:{
       screen:MainStack,
     },
     MyModal: {
       screen:ModalScreen
-    },
+    }
   },
   {
     mode:'modal',
-    headerMode:'none',
+    headerMode:'screen',
   }
 );
 
