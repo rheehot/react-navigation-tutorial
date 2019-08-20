@@ -630,3 +630,51 @@ static navigationOptions = ({navigation})=>{
   }
   ... <<이하 생략>>
   ```  
+
+# reset 버튼 생성 실습 응용
+./App.js
+``` javascript
+...<<생략>>
+  class HomeScreen extends React.Component {
+  static navigationOptions = ({navigation})=>{
+    return {
+      headerTitle:<LogoTitle />,
+      headerRight: (
+        <Button
+          onPress={navigation.getParam('increaseCount')}
+          title="+1"
+          color="transparent"
+        />
+      ),
+      headerLeft: (
+        <Button
+          onPress={navigation.getParam("resetCount")}
+          title="Reset"
+          color="transparent"
+        />
+      )
+    }
+  };
+  constructor(props){
+    super(props);
+    this.state = {
+      count : 0,
+    };
+  }
+
+  _increaseCount = () => {
+    this.setState({count:this.state.count+1})
+  }
+
+  _reset = () => {
+    this.setState({count:0})
+  }
+
+  componentDidMount() {
+    this.props.navigation.setParams({
+      increaseCount:this._increaseCount,
+      resetCount:this._reset
+    });
+  }
+...<<이하생략>>
+```

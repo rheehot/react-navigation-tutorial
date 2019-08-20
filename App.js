@@ -21,12 +21,19 @@ class HomeScreen extends React.Component {
     return {
       headerTitle:<LogoTitle />,
       headerRight: (
-      <Button
-        onPress={navigation.getParam('_increaseCount')}
-        title="+1"
-        color="transparent"
-      />
-    )
+        <Button
+          onPress={navigation.getParam('increaseCount')}
+          title="+1"
+          color="transparent"
+        />
+      ),
+      headerLeft: (
+        <Button
+          onPress={navigation.getParam("resetCount")}
+          title="Reset"
+          color="transparent"
+        />
+      )
     }
   };
   constructor(props){
@@ -36,12 +43,19 @@ class HomeScreen extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.props.navigation.setParams({_increaseCount:this._increaseCount});
-  }
-
   _increaseCount = () => {
     this.setState({count:this.state.count+1})
+  }
+
+  _reset = () => {
+    this.setState({count:0})
+  }
+
+  componentDidMount() {
+    this.props.navigation.setParams({
+      increaseCount:this._increaseCount,
+      resetCount:this._reset
+    });
   }
 
   onPress = () => {
