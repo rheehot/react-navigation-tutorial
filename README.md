@@ -752,3 +752,40 @@ const RootStack = createStackNavigator(
 
 const AppContainer = createAppContainer(RootStack);
 ```
+
+
+#  menu에 icon 추가하기 
+./App.js
+``` javascript
+import { Ionicons } from '@expo/vector-icons'
+
+...
+// MainStack 부분 변경
+const MainStack = createBottomTabNavigator(
+  {
+    Home: {
+      screen: HomeScreen
+    },
+    // Details: (props) => (<DetailsScreen navigation={props.navigation} titleID="홀리몰리"  />),
+    Details: DetailsScreen,
+  },
+  { 
+    defaultNavigationOptions:({navigation})=> ({
+      tabBarIcon:({focused, tintColor})=>{
+        const { routeName } = navigation.state;
+        let iconName;
+        if (routeName === 'Home'){
+          iconName = `ios-information-circle${focused ?'':'-outline'}`
+        } else if (routeName === 'Details'){
+          iconName=`ios-options`;
+        }
+        return <Ionicons name={iconName} size={25} color={tintColor} />;
+      },
+    }),
+    tabBarOptions: {
+      activeTintColor: 'tomato',
+      inactiveTintColor:'gray',
+    }
+  }
+);
+```

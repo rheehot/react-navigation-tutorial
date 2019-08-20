@@ -2,6 +2,7 @@ import React from 'react';
 import { Image, Button, TouchableOpacity, Text, View } from 'react-native';
 import { createBottomTabNavigator, createMaterialTopTabNavigator,createStackNavigator, createAppContainer } from 'react-navigation';
 import DetailsScreen from './screens/DetailsScreen.js'
+import { Ionicons } from '@expo/vector-icons'
 
 class ModalScreen extends React.Component {
   render() {
@@ -147,7 +148,7 @@ class HomeScreen extends React.Component {
 // createStackNavigator
 // createMaterialTopTabNavigator 
 // createBottomTabNavigator
-const MainStack = createMaterialTopTabNavigator(
+const MainStack = createBottomTabNavigator(
   {
     Home: {
       screen: HomeScreen
@@ -156,17 +157,23 @@ const MainStack = createMaterialTopTabNavigator(
     Details: DetailsScreen,
   },
   { 
-    initialRouteName: "Home",
-    defaultNavigationOptions:{
-      headerStyle:{
-        backgroundColor:'gray',
+    defaultNavigationOptions:({navigation})=> ({
+      tabBarIcon:({focused, tintColor})=>{
+        const { routeName } = navigation.state;
+        let iconName;
+        if (routeName === 'Home'){
+          iconName = `ios-information-circle${focused ?'':'-outline'}`
+        } else if (routeName === 'Details'){
+          iconName=`ios-options`;
+        }
+        return <Ionicons name={iconName} size={25} color={tintColor} />;
       },
-      headerTintColor:'#ff0012',
-      headerTintStyle:{
-        fontWeith:'bold',
-      },
-    },
-  },
+    }),
+    tabBarOptions: {
+      activeTintColor: 'tomato',
+      inactiveTintColor:'gray',
+    }
+  }
 );
 
 const RootStack = createStackNavigator(
