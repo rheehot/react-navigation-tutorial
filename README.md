@@ -230,7 +230,7 @@ class HomeScreen extends React.Component {
 ...<<이하 생략>>
 ```
 
-## DetailsScreen.js 에서도 다음 화면 이동 버틍 수행 실습
+## DetailsScreen.js 에서도 다음 화면 이동 버튼 수행 실습
 ### 함수형 컴포넌트로 실행한 경우 한단계를 더 실행해야함!
 
 
