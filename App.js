@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, Button, TouchableOpacity, Text, View } from 'react-native';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { createBottomTabNavigator, createMaterialTopTabNavigator,createStackNavigator, createAppContainer } from 'react-navigation';
 import DetailsScreen from './screens/DetailsScreen.js'
 
 class ModalScreen extends React.Component {
@@ -143,7 +143,10 @@ class HomeScreen extends React.Component {
 }
 
 // 기존 AppNavigator -> MainStack
-const MainStack = createStackNavigator(
+// 네비게이터 변경해보는 실습
+// createMaterialTopTabNavigator 
+// createBottomTabNavigator
+const MainStack = createMaterialTopTabNavigator(
   {
     Home: {
       screen: HomeScreen
